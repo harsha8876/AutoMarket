@@ -47,9 +47,10 @@ model Car {
   bodyType          String
   seats             Int?
   description       String
+  bhp               Int?               // ✅ Add this line
   status            CarStatus          @default(AVAILABLE)
   featured          Boolean            @default(false)
-  images            String[]           // Array of Supabase storage URLs
+  images            String[]
   savedBy           UserSavedCar[]
   testDriveBookings TestDriveBooking[]
   createdAt         DateTime           @default(now())

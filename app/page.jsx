@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import { toast } from "sonner";
+
 import React, { useState, useEffect } from "react";
 import {
   Search,
@@ -89,7 +91,17 @@ export default function Home() {
       features: ["Low Interest Rates", "Easy Approval", "Custom Plans"],
     },
   ];
-  
+  const [email, setEmail] = useState("");
+
+  const handleSubscribe = () => {
+  if (email.trim() === "") {
+    toast.error("Please enter your email address.");
+    return;
+  }
+
+  toast.success("We’ll contact you soon!");
+  setEmail(""); // clear the input field
+};
   return (
     <div className="relative min-h-screen bg-[#F5F5F5]">
       
@@ -242,16 +254,24 @@ export default function Home() {
                   ))}
                 </ul>
                 {service.title === "Car Financing" ? (
-                  <Link href="/finance">
-                    <button className="w-full bg-[#30475E] text-white py-3 rounded-lg hover:bg-[#121212] transition-all duration-300 font-medium">
-                      Learn More
-                    </button>
-                  </Link>
-                ) : (
-                  <button className="w-full bg-[#30475E] text-white py-3 rounded-lg hover:bg-[#121212] transition-all duration-300 font-medium">
+                <Link href="/finance">
+                  <button className="w-full bg-[#30475E] text-white py-3 rounded-lg hover:bg-[#121212] transition-all duration-300 font-medium cursor-pointer">
                     Learn More
                   </button>
-                )}
+                </Link>
+              ) : service.title === "Buying/Selling Cars" ? (
+                <Link href="/buying-selling">
+                  <button className="w-full bg-[#30475E] text-white py-3 rounded-lg hover:bg-[#121212] transition-all duration-300 font-medium cursor-pointer">
+                    Learn More
+                  </button>
+                </Link>
+              ) : (
+                <Link href="/cars">
+                <button className="w-full bg-[#30475E] text-white py-3 rounded-lg hover:bg-[#121212] transition-all duration-300 font-medium cursor-pointer">
+                  Learn More
+                </button>
+                </Link>
+              )}
               </div>
             ))}
           </div>
@@ -327,10 +347,13 @@ export default function Home() {
               </div>
             </div>
             <div className="relative">
-              <img 
-                src="#" 
-                alt="AutoMarket team"
+              <Image
+                src="/car_showroom.jpg"
+                alt="AutoMarket car showroom"
+                width={800}
+                height={400}
                 className="w-full h-96 object-cover rounded-2xl shadow-lg"
+                priority
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl"></div>
             </div>
@@ -406,14 +429,18 @@ export default function Home() {
           <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
             Get the latest car deals, market insights, and exclusive offers delivered straight to your inbox.
           </p>
+
           <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-            <input 
-              type="email" 
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email address"
               aria-label="Email address"
               className="flex-1 px-6 py-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#30475E] focus:border-transparent text-[#121212]"
             />
             <button
+              onClick={handleSubscribe}
               className="bg-[#30475E] text-white px-8 py-4 rounded-lg hover:bg-[#121212] transition-all duration-300 transform hover:scale-105 font-medium whitespace-nowrap"
               aria-label="Subscribe to newsletter"
             >

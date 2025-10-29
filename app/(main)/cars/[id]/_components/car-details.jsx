@@ -211,29 +211,28 @@ export default function CarDetailPage({ car, testDriveInfo }) {
             <div className="bg-white rounded-3xl shadow-lg p-8">
               <h2 className="text-xl font-bold text-[#30475E] mb-6">Specifications</h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div className="text-center p-4 bg-gray-50 rounded-2xl">
-                  <Fuel className="w-8 h-8 mx-auto mb-3 text-[#30475E]" />
-                  <p className="text-sm text-gray-500 mb-1">Fuel</p>
-                  <p className="font-bold text-[#30475E]">{car.fuelType}</p>
-                </div>
-                <div className="text-center p-4 bg-gray-50 rounded-2xl">
-                  <Gauge className="w-8 h-8 mx-auto mb-3 text-[#30475E]" />
-                  <p className="text-sm text-gray-500 mb-1">Power</p>
-                  <p className="font-bold text-[#30475E]">{car.bhp || "—"}</p>
-                </div>
-                <div className="text-center p-4 bg-gray-50 rounded-2xl">
-                  <Calendar className="w-8 h-8 mx-auto mb-3 text-[#30475E]" />
-                  <p className="text-sm text-gray-500 mb-1">Year</p>
-                  <p className="font-bold text-[#30475E]">{car.year}</p>
-                </div>
-                <div className="text-center p-4 bg-gray-50 rounded-2xl">
-                  <Star className="w-8 h-8 mx-auto mb-3 text-[#30475E] fill-current" />
-                  <p className="text-sm text-gray-500 mb-1">Rating</p>
-                  <p className="font-bold text-[#30475E]">
-                    {car.rating ? `${car.rating}/5` : "N/A"}
-                  </p>
-                </div>
+              <div className="text-center p-4 bg-gray-50 rounded-2xl">
+                <Fuel className="w-8 h-8 mx-auto mb-3 text-[#30475E]" />
+                <p className="text-sm text-gray-500 mb-1">Fuel</p>
+                <p className="font-bold text-[#30475E]">{car.fuelType}</p>
               </div>
+              <div className="text-center p-4 bg-gray-50 rounded-2xl">
+                <Gauge className="w-8 h-8 mx-auto mb-3 text-[#30475E]" />
+                <p className="text-sm text-gray-500 mb-1">Power</p>
+                <p className="font-bold text-[#30475E]">{car.bhp ? `${car.bhp} BHP` : "—"}</p>
+              </div>
+              <div className="text-center p-4 bg-gray-50 rounded-2xl">
+                <Calendar className="w-8 h-8 mx-auto mb-3 text-[#30475E]" />
+                <p className="text-sm text-gray-500 mb-1">Year</p>
+                <p className="font-bold text-[#30475E]">{car.year}</p>
+              </div>
+              {/* 🔄 Replaced Rating with Color */}
+              <div className="text-center p-4 bg-gray-50 rounded-2xl">
+                <Star className="w-8 h-8 mx-auto mb-3 text-[#30475E] fill-current" />
+                <p className="text-sm text-gray-500 mb-1">Color</p>
+                <p className="font-bold text-[#30475E]">{car.color || "—"}</p>
+              </div>
+            </div>
             </div>
           </div>
 
@@ -242,11 +241,11 @@ export default function CarDetailPage({ car, testDriveInfo }) {
             <div className="bg-white rounded-3xl shadow-lg p-8 sticky top-24">
               <div className="mb-6">
                 <h1 className="text-3xl font-bold text-[#30475E] mb-2">
-                  {car.year} {car.make} {car.model}
+                   {car.make} {car.model}
                 </h1>
                 <div className="flex items-center gap-2 text-gray-600 mb-4">
                   <Calendar className="w-4 h-4" />
-                  <span className="text-sm">Launched {car.launchedOn || "—"}</span>
+                  <span className="text-sm">Launched in {car.year || "—"}</span>
                 </div>
 
                 <div className="flex items-center gap-2 mb-6">
@@ -270,21 +269,21 @@ export default function CarDetailPage({ car, testDriveInfo }) {
               </div>
 
               <div className="space-y-3">
-                <Button
+                {/* <Button
                   onClick={handleGetBestOffer}
                   className="w-full py-4 rounded-2xl bg-[#30475E] text-white font-semibold hover:bg-[#223346] transition-all hover:shadow-xl"
                 >
                   Get Best Offer
-                </Button>
+                </Button> */}
 
                 <Button
                   onClick={handleBookTestDrive}
                   variant="outline"
                   disabled={!!testDriveInfo?.userTestDrive}
-                  className={`w-full py-4 rounded-2xl border-2 font-semibold transition-all flex items-center justify-center gap-2 ${
+                  className={`w-full py-4 rounded-2xl font-semibold transition-all flex items-center justify-center gap-2 ${
                     testDriveInfo?.userTestDrive
                       ? "bg-gray-100 text-gray-500 border-gray-300 cursor-not-allowed"
-                      : "text-[#30475E] hover:bg-[#30475E] hover:text-white"
+                      : "bg-[#30475E] text-white hover:bg-[#223346] hover:shadow-xl"
                   }`}
                 >
                   <Calendar className="w-5 h-5" />
@@ -294,7 +293,8 @@ export default function CarDetailPage({ car, testDriveInfo }) {
                         "EEEE, MMMM d, yyyy"
                       )}`
                     : "Schedule Test Drive"}
-              </Button>
+                </Button>
+
                 <Dialog>
                   <DialogTrigger asChild>
                     <Button

@@ -37,7 +37,8 @@ export const FinanceSection = () => {
 
         {/* Loan Calculator */}
         <div className="mb-16">
-          <LoanCalculator />
+          {/* Ensure LoanCalculator uses INR (₹) inside its component */}
+          <LoanCalculator currency="INR" symbol="₹" />
         </div>
 
         {/* Finance Features */}
@@ -70,8 +71,6 @@ export const FinanceSection = () => {
             </p>
           </div>
         </div>
-
-        
 
         {/* Partner Banks */}
         <div className="text-center mb-12">

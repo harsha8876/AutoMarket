@@ -55,14 +55,18 @@ export const CarFilterControls = ({
           <Slider
             min={filters.priceRange.min}
             max={filters.priceRange.max}
-            step={100}
+            step={10000}
             value={priceRange}
             onValueChange={(value) => onFilterChange("priceRange", value)}
           />
         </div>
         <div className="flex items-center justify-between">
-          <div className="font-medium text-sm">$ {priceRange[0]}</div>
-          <div className="font-medium text-sm">$ {priceRange[1]}</div>
+          <div className="font-medium text-sm">
+            ₹ {priceRange[0].toLocaleString("en-IN")}
+          </div>
+          <div className="font-medium text-sm">
+            ₹ {priceRange[1].toLocaleString("en-IN")}
+          </div>
         </div>
       </div>
 

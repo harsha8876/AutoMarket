@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Calculator, DollarSign, TrendingDown, Clock } from 'lucide-react';
+import { Calculator, IndianRupee, TrendingDown, Clock } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 
 export const LoanCalculator = () => {
@@ -7,11 +7,11 @@ export const LoanCalculator = () => {
   const priceFromUrl = searchParams.get('price');
   const carNameFromUrl = searchParams.get('carName');
   
-  const initialPrice = priceFromUrl ? Number(priceFromUrl) : 25000;
-  
+  const initialPrice = priceFromUrl ? Number(priceFromUrl) : 2500000; // ₹25,00,000 default
+
   const [loanAmount, setLoanAmount] = useState(initialPrice);
   const [downPayment, setDownPayment] = useState(Math.round(initialPrice * 0.2));
-  const [interestRate, setInterestRate] = useState(6.5);
+  const [interestRate, setInterestRate] = useState(8.5);
   const [loanTenure, setLoanTenure] = useState(5);
   const [emi, setEmi] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);
@@ -31,8 +31,9 @@ export const LoanCalculator = () => {
     const months = loanTenure * 12;
 
     if (principal > 0 && monthlyRate > 0 && months > 0) {
-      const emiAmount = (principal * monthlyRate * Math.pow(1 + monthlyRate, months)) /
-                       (Math.pow(1 + monthlyRate, months) - 1);
+      const emiAmount =
+        (principal * monthlyRate * Math.pow(1 + monthlyRate, months)) /
+        (Math.pow(1 + monthlyRate, months) - 1);
       const totalPayment = emiAmount * months;
       const interestPayment = totalPayment - principal;
 
@@ -46,11 +47,12 @@ export const LoanCalculator = () => {
     }
   }, [loanAmount, downPayment, interestRate, loanTenure]);
 
+  // Format in Indian Rupees
   const formatCurrency = (amount) => {
-    if (isNaN(amount)) return "$0";
-    return new Intl.NumberFormat('en-US', {
+    if (isNaN(amount)) return "₹0";
+    return new Intl.NumberFormat('en-IN', {
       style: 'currency',
-      currency: 'USD',
+      currency: 'INR',
       maximumFractionDigits: 0
     }).format(amount);
   };
@@ -70,18 +72,18 @@ export const LoanCalculator = () => {
             </label>
             <input
               type="range"
-              min="5000"
-              max="100000"
-              step="1000"
+              min="500000"
+              max="10000000"
+              step="50000"
               value={loanAmount}
               onChange={(e) => setLoanAmount(Number(e.target.value))}
               className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
               aria-label="Car Price Slider"
             />
             <div className="flex justify-between text-sm text-gray-600 mt-1">
-              <span>$5K</span>
+              <span>₹5L</span>
               <span className="font-semibold text-[#30475E]">{formatCurrency(loanAmount)}</span>
-              <span>$100K</span>
+              <span>₹100L</span>
             </div>
           </div>
 
@@ -93,14 +95,14 @@ export const LoanCalculator = () => {
               type="range"
               min="0"
               max={Math.max(loanAmount * 0.5 || 0, 0)}
-              step="500"
+              step="10000"
               value={downPayment}
               onChange={(e) => setDownPayment(Number(e.target.value))}
               className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
               aria-label="Down Payment Slider"
             />
             <div className="flex justify-between text-sm text-gray-600 mt-1">
-              <span>$0</span>
+              <span>₹0</span>
               <span className="font-semibold text-[#30475E]">{formatCurrency(downPayment)}</span>
               <span>{formatCurrency(loanAmount * 0.5)}</span>
             </div>
@@ -112,7 +114,7 @@ export const LoanCalculator = () => {
             </label>
             <input
               type="range"
-              min="3"
+              min="6"
               max="12"
               step="0.1"
               value={interestRate}
@@ -121,7 +123,7 @@ export const LoanCalculator = () => {
               aria-label="Interest Rate Slider"
             />
             <div className="flex justify-between text-sm text-gray-600 mt-1">
-              <span>3%</span>
+              <span>6%</span>
               <span className="font-semibold text-[#30475E]">{interestRate}%</span>
               <span>12%</span>
             </div>
@@ -155,7 +157,7 @@ export const LoanCalculator = () => {
           <div className="space-y-4">
             <div className="flex justify-between items-center p-4 bg-white rounded-lg">
               <div className="flex items-center">
-                <DollarSign className="w-5 h-5 text-[#30475E] mr-2" />
+                <IndianRupee className="w-5 h-5 text-[#30475E] mr-2" />
                 <span className="text-gray-700">Monthly EMI</span>
               </div>
               <span className="text-xl font-bold text-[#30475E]">{formatCurrency(emi)}</span>
