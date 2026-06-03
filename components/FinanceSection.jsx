@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import {
   CreditCard,
   Percent,
@@ -37,8 +37,9 @@ export const FinanceSection = () => {
 
         {/* Loan Calculator */}
         <div className="mb-16">
-          {/* Ensure LoanCalculator uses INR (₹) inside its component */}
-          <LoanCalculator currency="INR" symbol="₹" />
+          <Suspense fallback={<div className="h-64 bg-white rounded-2xl animate-pulse" />}>
+            <LoanCalculator currency="INR" symbol="₹" />
+          </Suspense>
         </div>
 
         {/* Finance Features */}
