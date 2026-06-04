@@ -1,7 +1,7 @@
 import { TestDrivesList } from "./_components/test-drive-list";
 
 export const metadata = {
-  title: "Test Drives | Automarket Admin",
+  title: "Test Drives | DriveIQ Admin",
   description: "Manage test drive bookings",
 };
 

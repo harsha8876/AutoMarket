@@ -23,7 +23,7 @@ import {
   ChevronRight
 } from "lucide-react";
 import BlurText from "@/components/ui/BlurText";
-import { SignInButton, SignUpButton } from "@clerk/nextjs";
+import { SignInButton, SignUpButton, useAuth } from "@clerk/nextjs";
 import DarkVeil from "@/components/ui/DarkVeil";
 import Link from "next/link";
 import { bodyTypes, carMakes, faqItems } from "@/lib/data";
@@ -34,16 +34,17 @@ import Searchbar from "@/components/Searchbar";
 import { CarCard } from "@/components/car-card"; // ✅ Import CarCard
 
 export default function Home() {
-  const [featuredCars, setFeaturedCars] = useState([]); // ✅ Declare featuredCars
+  const [featuredCars, setFeaturedCars] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
+  const { isSignedIn } = useAuth();
 
-  // ✅ Fetch featured cars client-side
   useEffect(() => {
     async function fetchCars() {
       try {
+        setIsLoading(true);
         const cars = await getFeaturedCars();
         setFeaturedCars(cars);
       } catch (error) {
@@ -53,7 +54,7 @@ export default function Home() {
       }
     }
     fetchCars();
-  }, []);
+  }, [isSignedIn]);
 
   const [visibleBrands, setVisibleBrands] = useState(5);
   const [brandsPerClick, setBrandsPerClick] = useState(5);
@@ -103,14 +104,14 @@ export default function Home() {
   setEmail(""); // clear the input field
 };
   return (
-    <div className="relative min-h-screen bg-[#F5F5F5]">
+    <div className="relative min-h-screen bg-white">
       
       {/* <div className="z-35 w-full inset-0">
           <Header/>
       </div> */}
       
       {/* Hero Section with Dark Veil */}
-      <section className="relative bg-gradient-to-b from-[#30475E] via-[#2a3f5a] to-[#243652] text-white py-16 sm:py-20 lg:py-24 overflow-hidden">
+      <section className="relative bg-gradient-to-b from-[#0071E3] via-[#0062C4] to-[#004A93] text-white py-16 sm:py-20 lg:py-24 overflow-hidden">
         {/* Dark Veil Background */}
         <div className="absolute inset-0 z-0">
           <DarkVeil
@@ -124,7 +125,7 @@ export default function Home() {
         </div>
 
         {/* Gradient overlay for seamless blending */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#30475E]/50 to-[#30475E]/80 z-1"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0071E3]/50 to-[#0071E3]/80 z-1"></div>
 
         <div className="flex flex-col items-center justify-center relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full text-center">
           <div className="mb-8 sm:mb-12">
@@ -135,7 +136,7 @@ export default function Home() {
               direction="top"
               stepDuration={0.5}
             />
-            <p className="text-base sm:text-lg lg:text-xl text-[#F5F5F5] max-w-2xl mx-auto px-4">
+            <p className="text-base sm:text-lg lg:text-xl text-white max-w-2xl mx-auto px-4">
               Discover the best deals on cars that suit your needs and budget.
             </p>
           </div>
@@ -146,7 +147,7 @@ export default function Home() {
             <Searchbar />
           </div>
         </div> 
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#30475E]/50 to-[#30475E]/80 z-10"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0071E3]/50 to-[#0071E3]/80 z-10"></div>
 
       </section>
 
@@ -221,10 +222,10 @@ export default function Home() {
 
 
       {/* Services */}
-      <section className="py-16 bg-[#F5F5F5]" id="services">
+      <section className="py-16 bg-white" id="services">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#121212] mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#1D1D1F] mb-4">
               Our Services
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
@@ -239,7 +240,7 @@ export default function Home() {
                 key={index}
                 className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300"
               >
-                <h3 className="text-2xl font-bold text-[#121212] mb-4">
+                <h3 className="text-2xl font-bold text-[#1D1D1F] mb-4">
                   {service.title}
                 </h3>
                 <p className="text-gray-600 mb-6 leading-relaxed">
@@ -255,19 +256,19 @@ export default function Home() {
                 </ul>
                 {service.title === "Car Financing" ? (
                 <Link href="/finance">
-                  <button className="w-full bg-[#30475E] text-white py-3 rounded-lg hover:bg-[#121212] transition-all duration-300 font-medium cursor-pointer">
+                  <button className="w-full bg-[#0071E3] text-white py-3 rounded-lg hover:bg-[#005BB5] transition-all duration-300 font-medium cursor-pointer">
                     Learn More
                   </button>
                 </Link>
               ) : service.title === "Buying/Selling Cars" ? (
                 <Link href="/buying-selling">
-                  <button className="w-full bg-[#30475E] text-white py-3 rounded-lg hover:bg-[#121212] transition-all duration-300 font-medium cursor-pointer">
+                  <button className="w-full bg-[#0071E3] text-white py-3 rounded-lg hover:bg-[#005BB5] transition-all duration-300 font-medium cursor-pointer">
                     Learn More
                   </button>
                 </Link>
               ) : (
                 <Link href="/cars">
-                <button className="w-full bg-[#30475E] text-white py-3 rounded-lg hover:bg-[#121212] transition-all duration-300 font-medium cursor-pointer">
+                <button className="w-full bg-[#0071E3] text-white py-3 rounded-lg hover:bg-[#005BB5] transition-all duration-300 font-medium cursor-pointer">
                   Learn More
                 </button>
                 </Link>
@@ -278,10 +279,10 @@ export default function Home() {
         </div>
       </section>
        {/* Trust Indicators */}
-       <section className="py-16 bg-[#F5F5F5]">
+       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#121212] mb-4">Trusted by Millions</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#1D1D1F] mb-4">Trusted by Millions</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
               Industry recognition and customer trust that speaks for our commitment to excellence.
             </p>
@@ -289,20 +290,20 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-white rounded-2xl p-8 text-center shadow-lg hover:shadow-2xl transition-all duration-300">
-              <Award className="w-12 h-12 text-[#30475E] mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-[#121212] mb-2">Industry Leader</h3>
+              <Award className="w-12 h-12 text-[#1D1D1F] mx-auto mb-4" />
+              <h3 className="text-xl font-bold text-[#1D1D1F] mb-2">Industry Leader</h3>
               <p className="text-gray-600">Recognized as India's #1 used car platform by leading automotive publications</p>
             </div>
 
             <div className="bg-white rounded-2xl p-8 text-center shadow-lg hover:shadow-2xl transition-all duration-300">
-              <Users className="w-12 h-12 text-[#30475E] mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-[#121212] mb-2">Customer First</h3>
+              <Users className="w-12 h-12 text-[#1D1D1F] mx-auto mb-4" />
+              <h3 className="text-xl font-bold text-[#1D1D1F] mb-2">Customer First</h3>
               <p className="text-gray-600">Over 1 million satisfied customers with 99% positive feedback ratings</p>
             </div>
 
             <div className="bg-white rounded-2xl p-8 text-center shadow-lg hover:shadow-2xl transition-all duration-300">
-              <TrendingUp className="w-12 h-12 text-[#30475E] mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-[#121212] mb-2">Growing Fast</h3>
+              <TrendingUp className="w-12 h-12 text-[#1D1D1F] mx-auto mb-4" />
+              <h3 className="text-xl font-bold text-[#1D1D1F] mb-2">Growing Fast</h3>
               <p className="text-gray-600">Expanding to new cities every month with innovative automotive solutions</p>
             </div>
           </div>
@@ -315,16 +316,16 @@ export default function Home() {
             <section className="py-16 bg-white" id="about">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-16">
-                  <h2 className="text-3xl md:text-4xl font-bold text-[#121212] mb-4">About AutoMarket</h2>
+                  <h2 className="text-3xl md:text-4xl font-bold text-[#1D1D1F] mb-4">About DriveIQ</h2>
                   <p className="text-gray-600 max-w-3xl mx-auto text-lg leading-relaxed">
-                    Founded in 2018, AutoMarket has revolutionized the way Indians buy and sell cars. We're on a mission to make car ownership accessible, transparent, and hassle-free for everyone.
+                    Founded in 2018, DriveIQ has revolutionized the way Indians buy and sell cars. We're on a mission to make car ownership accessible, transparent, and hassle-free for everyone.
                   </p>
                 </div>
               </div>
             
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
             <div className="pl-4">
-              <h3 className="text-2xl md:text-3xl font-bold text-[#121212] mb-6">Our Story</h3>
+              <h3 className="text-2xl md:text-3xl font-bold text-[#1D1D1F] mb-6">Our Story</h3>
               <p className="text-gray-600 mb-4 leading-relaxed">
                 What started as a simple idea to help people find reliable used cars has grown into India's largest automotive marketplace. We recognized the challenges faced by car buyers and sellers - lack of transparency, complicated processes, and trust issues.
               </p>
@@ -333,23 +334,23 @@ export default function Home() {
               </p>
               <div className="flex items-center space-x-6">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-[#30475E]">6+</div>
+                  <div className="text-2xl font-bold text-[#1D1D1F]">6+</div>
                   <div className="text-gray-600 text-sm">Years Experience</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-[#30475E]">25+</div>
+                  <div className="text-2xl font-bold text-[#1D1D1F]">25+</div>
                   <div className="text-gray-600 text-sm">Cities</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-[#30475E]">1M+</div>
+                  <div className="text-2xl font-bold text-[#1D1D1F]">1M+</div>
                   <div className="text-gray-600 text-sm">Happy Customers</div>
                 </div>
               </div>
             </div>
             <div className="relative">
               <Image
-                src="/car_showroom.jpg"
-                alt="AutoMarket car showroom"
+                src="/3.jpg"
+                alt="DriveIQ car showroom"
                 width={800}
                 height={400}
                 className="w-full h-96 object-cover rounded-2xl shadow-lg"
@@ -361,20 +362,20 @@ export default function Home() {
 
           {/* Mission & Vision */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-            <div className="bg-[#F5F5F5] rounded-2xl p-8 text-center hover:shadow-lg transition-all duration-300">
-              <div className="w-16 h-16 bg-[#30475E] text-white rounded-full flex items-center justify-center mx-auto mb-6">
+            <div className="bg-white rounded-2xl p-8 text-center hover:shadow-lg transition-all duration-300">
+              <div className="w-16 h-16 bg-[#0071E3] text-white rounded-full flex items-center justify-center mx-auto mb-6">
                 <Star className="w-8 h-8" />
               </div>
-              <h3 className="text-xl font-bold text-[#121212] mb-4">Our Mission</h3>
+              <h3 className="text-xl font-bold text-[#1D1D1F] mb-4">Our Mission</h3>
               <p className="text-gray-600 leading-relaxed">
                 To democratize car ownership in India by providing a transparent, reliable, and customer-centric platform that makes buying and selling cars simple, safe, and affordable for everyone.
               </p>
             </div>
-            <div className="bg-[#F5F5F5] rounded-2xl p-8 text-center hover:shadow-lg transition-all duration-300">
-              <div className="w-16 h-16 bg-[#30475E] text-white rounded-full flex items-center justify-center mx-auto mb-6">
+            <div className="bg-white rounded-2xl p-8 text-center hover:shadow-lg transition-all duration-300">
+              <div className="w-16 h-16 bg-[#0071E3] text-white rounded-full flex items-center justify-center mx-auto mb-6">
                 <TrendingUp className="w-8 h-8" />
               </div>
-              <h3 className="text-xl font-bold text-[#121212] mb-4">Our Vision</h3>
+              <h3 className="text-xl font-bold text-[#1D1D1F] mb-4">Our Vision</h3>
               <p className="text-gray-600 leading-relaxed">
                 To become India's most trusted automotive ecosystem, where every car transaction is transparent, every customer is satisfied, and car ownership dreams become reality for millions of families.
               </p>
@@ -384,38 +385,38 @@ export default function Home() {
           {/* Core Values */}
           <div className="mb-16">
             <div className="text-center mb-12">
-              <h3 className="text-2xl md:text-3xl font-bold text-[#121212] mb-4">Our Core Values</h3>
+              <h3 className="text-2xl md:text-3xl font-bold text-[#1D1D1F] mb-4">Our Core Values</h3>
               <p className="text-gray-600 max-w-2xl mx-auto">
                 These values guide everything we do and shape our commitment to customers
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               <div className="text-center group">
-                <div className="w-16 h-16 bg-[#30475E] text-white rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-[#121212] transition-colors duration-300">
+                <div className="w-16 h-16 bg-[#0071E3] text-white rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-[#005BB5] transition-colors duration-300">
                   <Shield className="w-8 h-8" />
                 </div>
-                <h4 className="text-lg font-bold text-[#121212] mb-2">Trust</h4>
+                <h4 className="text-lg font-bold text-[#1D1D1F] mb-2">Trust</h4>
                 <p className="text-gray-600 text-sm">Building lasting relationships through transparency and reliability</p>
               </div>
               <div className="text-center group">
-                <div className="w-16 h-16 bg-[#30475E] text-white rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-[#121212] transition-colors duration-300">
+                <div className="w-16 h-16 bg-[#0071E3] text-white rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-[#005BB5] transition-colors duration-300">
                   <CheckCircle className="w-8 h-8" />
                 </div>
-                <h4 className="text-lg font-bold text-[#121212] mb-2">Quality</h4>
+                <h4 className="text-lg font-bold text-[#1D1D1F] mb-2">Quality</h4>
                 <p className="text-gray-600 text-sm">Maintaining the highest standards in every car and service</p>
               </div>
               <div className="text-center group">
-                <div className="w-16 h-16 bg-[#30475E] text-white rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-[#121212] transition-colors duration-300">
+                <div className="w-16 h-16 bg-[#0071E3] text-white rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-[#005BB5] transition-colors duration-300">
                   <Users className="w-8 h-8" />
                 </div>
-                <h4 className="text-lg font-bold text-[#121212] mb-2">Customer First</h4>
+                <h4 className="text-lg font-bold text-[#1D1D1F] mb-2">Customer First</h4>
                 <p className="text-gray-600 text-sm">Putting customer needs at the center of everything we do</p>
               </div>
               <div className="text-center group">
-                <div className="w-16 h-16 bg-[#30475E] text-white rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-[#121212] transition-colors duration-300">
+                <div className="w-16 h-16 bg-[#0071E3] text-white rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-[#005BB5] transition-colors duration-300">
                   <Award className="w-8 h-8" />
                 </div>
-                <h4 className="text-lg font-bold text-[#121212] mb-2">Excellence</h4>
+                <h4 className="text-lg font-bold text-[#1D1D1F] mb-2">Excellence</h4>
                 <p className="text-gray-600 text-sm">Continuously improving and innovating for better experiences</p>
               </div>
             </div>
@@ -425,7 +426,7 @@ export default function Home() {
               {/* Newsletter Section */}
       <section className="py-16 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#121212] mb-4">Stay Updated</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-[#1D1D1F] mb-4">Stay Updated</h2>
           <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
             Get the latest car deals, market insights, and exclusive offers delivered straight to your inbox.
           </p>
@@ -437,11 +438,11 @@ export default function Home() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email address"
               aria-label="Email address"
-              className="flex-1 px-6 py-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#30475E] focus:border-transparent text-[#121212]"
+              className="flex-1 px-6 py-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0071E3] focus:border-transparent text-[#1D1D1F]"
             />
             <button
               onClick={handleSubscribe}
-              className="bg-[#30475E] text-white px-8 py-4 rounded-lg hover:bg-[#121212] transition-all duration-300 transform hover:scale-105 font-medium whitespace-nowrap"
+              className="bg-[#0071E3] text-white px-8 py-4 rounded-lg hover:bg-[#005BB5] transition-all duration-300 transform hover:scale-105 font-medium whitespace-nowrap"
               aria-label="Subscribe to newsletter"
             >
               Subscribe Now

@@ -25,7 +25,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { EmiCalculator } from "./emi-calculator";
+import dynamic from "next/dynamic";
+const EmiCalculator = dynamic(
+  () => import("./emi-calculator").then((m) => ({ default: m.EmiCalculator })),
+  { ssr: false }
+);
 import { toggleSavedCar } from "@/actions/car-listing";
 import useFetch from "@/hooks/use-fetch";
 import { formatCurrency } from "@/lib/helpers";
@@ -77,7 +81,7 @@ export default function CarDetailPage({ car, testDriveInfo }) {
       navigator
         .share({
           title: `${car.year} ${car.make} ${car.model}`,
-          text: `Check out this ${car.year} ${car.make} ${car.model} on Automarket!`,
+          text: `Check out this ${car.year} ${car.make} ${car.model} on DriveIQ!`,
           url: window.location.href,
         })
         .catch(() => copyToClipboard());
@@ -107,7 +111,7 @@ export default function CarDetailPage({ car, testDriveInfo }) {
     return (
       <div className="min-h-screen flex items-center justify-center text-gray-600 bg-gray-50">
         <div className="text-center">
-          <h2 className="text-2xl font-semibold text-[#30475E] mb-2">Car Not Found</h2>
+          <h2 className="text-2xl font-semibold text-[#1D1D1F] mb-2">Car Not Found</h2>
           <p className="text-gray-500">The vehicle you're looking for doesn't exist.</p>
         </div>
       </div>
@@ -121,7 +125,7 @@ export default function CarDetailPage({ car, testDriveInfo }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <button
             onClick={() => router.back()}
-            className="flex items-center text-[#30475E] hover:text-[#223346] transition-colors font-medium"
+            className="flex items-center text-[#1D1D1F] hover:text-[#1D1D1F] transition-colors font-medium"
           >
             <ArrowLeft className="w-5 h-5 mr-2" />
             <span>Back</span>
@@ -190,7 +194,7 @@ export default function CarDetailPage({ car, testDriveInfo }) {
                       key={index}
                       className={`relative cursor-pointer rounded-md h-20 w-28 flex-shrink-0 transition-all duration-300 ${
                         index === currentImageIndex
-                          ? "ring-2 ring-[#30475E]"
+                          ? "ring-2 ring-[#0071E3]"
                           : "opacity-75 hover:opacity-100"
                       }`}
                       onClick={() => setCurrentImageIndex(index)}
@@ -209,28 +213,28 @@ export default function CarDetailPage({ car, testDriveInfo }) {
 
             {/* Specifications */}
             <div className="bg-white rounded-3xl shadow-lg p-8">
-              <h2 className="text-xl font-bold text-[#30475E] mb-6">Specifications</h2>
+              <h2 className="text-xl font-bold text-[#1D1D1F] mb-6">Specifications</h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               <div className="text-center p-4 bg-gray-50 rounded-2xl">
-                <Fuel className="w-8 h-8 mx-auto mb-3 text-[#30475E]" />
+                <Fuel className="w-8 h-8 mx-auto mb-3 text-[#1D1D1F]" />
                 <p className="text-sm text-gray-500 mb-1">Fuel</p>
-                <p className="font-bold text-[#30475E]">{car.fuelType}</p>
+                <p className="font-bold text-[#1D1D1F]">{car.fuelType}</p>
               </div>
               <div className="text-center p-4 bg-gray-50 rounded-2xl">
-                <Gauge className="w-8 h-8 mx-auto mb-3 text-[#30475E]" />
+                <Gauge className="w-8 h-8 mx-auto mb-3 text-[#1D1D1F]" />
                 <p className="text-sm text-gray-500 mb-1">Power</p>
-                <p className="font-bold text-[#30475E]">{car.bhp ? `${car.bhp} BHP` : "—"}</p>
+                <p className="font-bold text-[#1D1D1F]">{car.bhp ? `${car.bhp} BHP` : "—"}</p>
               </div>
               <div className="text-center p-4 bg-gray-50 rounded-2xl">
-                <Calendar className="w-8 h-8 mx-auto mb-3 text-[#30475E]" />
+                <Calendar className="w-8 h-8 mx-auto mb-3 text-[#1D1D1F]" />
                 <p className="text-sm text-gray-500 mb-1">Year</p>
-                <p className="font-bold text-[#30475E]">{car.year}</p>
+                <p className="font-bold text-[#1D1D1F]">{car.year}</p>
               </div>
               {/* 🔄 Replaced Rating with Color */}
               <div className="text-center p-4 bg-gray-50 rounded-2xl">
-                <Star className="w-8 h-8 mx-auto mb-3 text-[#30475E] fill-current" />
+                <Star className="w-8 h-8 mx-auto mb-3 text-[#1D1D1F] fill-current" />
                 <p className="text-sm text-gray-500 mb-1">Color</p>
-                <p className="font-bold text-[#30475E]">{car.color || "—"}</p>
+                <p className="font-bold text-[#1D1D1F]">{car.color || "—"}</p>
               </div>
             </div>
             </div>
@@ -240,7 +244,7 @@ export default function CarDetailPage({ car, testDriveInfo }) {
           <div className="lg:col-span-1 space-y-6">
             <div className="bg-white rounded-3xl shadow-lg p-8 sticky top-24">
               <div className="mb-6">
-                <h1 className="text-3xl font-bold text-[#30475E] mb-2">
+                <h1 className="text-3xl font-bold text-[#1D1D1F] mb-2">
                    {car.make} {car.model}
                 </h1>
                 <div className="flex items-center gap-2 text-gray-600 mb-4">
@@ -249,7 +253,7 @@ export default function CarDetailPage({ car, testDriveInfo }) {
                 </div>
 
                 <div className="flex items-center gap-2 mb-6">
-                  <div className="flex items-center bg-[#30475E] text-white px-3 py-1 rounded-full">
+                  <div className="flex items-center bg-[#0071E3] text-white px-3 py-1 rounded-full">
                     <Star className="w-4 h-4 mr-1 fill-current" />
                     <span className="font-semibold">{car.rating || "—"}</span>
                   </div>
@@ -263,7 +267,7 @@ export default function CarDetailPage({ car, testDriveInfo }) {
               {/* Price + Buttons */}
               <div className="border-t border-gray-200 pt-6 mb-6">
                 <p className="text-sm text-gray-500 mb-1">Starting Price</p>
-                <p className="text-4xl font-bold text-[#30475E]">
+                <p className="text-4xl font-bold text-[#1D1D1F]">
                   {formatCurrency(car.price)}
                 </p>
               </div>
@@ -271,7 +275,7 @@ export default function CarDetailPage({ car, testDriveInfo }) {
               <div className="space-y-3">
                 {/* <Button
                   onClick={handleGetBestOffer}
-                  className="w-full py-4 rounded-2xl bg-[#30475E] text-white font-semibold hover:bg-[#223346] transition-all hover:shadow-xl"
+                  className="w-full py-4 rounded-2xl bg-[#0071E3] text-white font-semibold hover:bg-[#005BB5] transition-all hover:shadow-xl"
                 >
                   Get Best Offer
                 </Button> */}
@@ -283,7 +287,7 @@ export default function CarDetailPage({ car, testDriveInfo }) {
                   className={`w-full py-4 rounded-2xl font-semibold transition-all flex items-center justify-center gap-2 ${
                     testDriveInfo?.userTestDrive
                       ? "bg-gray-100 text-gray-500 border-gray-300 cursor-not-allowed"
-                      : "bg-[#30475E] text-white hover:bg-[#223346] hover:shadow-xl"
+                      : "bg-[#0071E3] text-white hover:bg-[#005BB5] hover:shadow-xl"
                   }`}
                 >
                   <Calendar className="w-5 h-5" />
@@ -299,7 +303,7 @@ export default function CarDetailPage({ car, testDriveInfo }) {
                   <DialogTrigger asChild>
                     <Button
                       variant="outline"
-                      className="w-full py-4 rounded-2xl border-2 text-[#30475E] font-semibold hover:bg-[#30475E] hover:text-white flex items-center justify-center gap-2"
+                      className="w-full py-4 rounded-2xl border-2 text-[#1D1D1F] font-semibold hover:bg-[#0071E3] hover:text-white flex items-center justify-center gap-2"
                     >
                       <Currency className="w-5 h-5" />
                       EMI Calculator
@@ -307,7 +311,7 @@ export default function CarDetailPage({ car, testDriveInfo }) {
                   </DialogTrigger>
                   <DialogContent>
                     <DialogHeader>
-                      <DialogTitle>Automarekt Car Loan Calculator</DialogTitle>
+                      <DialogTitle>DriveIQ Car Loan Calculator</DialogTitle>
                       <EmiCalculator price={car.price} />
                     </DialogHeader>
                   </DialogContent>
@@ -343,15 +347,19 @@ export default function CarDetailPage({ car, testDriveInfo }) {
             <div className="flex items-start gap-3">
               <LocateFixed className="h-5 w-5 text-blue-600 mt-1 flex-shrink-0" />
               <div>
-                <h4 className="font-medium">Automarket Motors</h4>
+                <h4 className="font-medium">DriveIQ Motors India</h4>
                 <p className="text-gray-600">
-                  {testDriveInfo.dealership?.address || "Not Available"}
+                  Level 5, Orion Business Tower
+                  Plot 27, Velocity Avenue
+                  Bandra Kurla Complex (BKC)
+                  Mumbai, Maharashtra 400051
+                  India
                 </p>
                 <p className="text-gray-600 mt-1">
-                  Phone: {testDriveInfo.dealership?.phone || "Not Available"}
+                  Phone: +91 98123 45678
                 </p>
                 <p className="text-gray-600">
-                  Email: {testDriveInfo.dealership?.email || "Not Available"}
+                  Email: contact@driveiq.in
                 </p>
               </div>
             </div>

@@ -3,7 +3,7 @@ import { getCarFilters } from "@/actions/car-listing";
 import { CarListings } from "./_components/car-listing";
 
 export const metadata = {
-  title: "Cars | AutoMarket",
+  title: "Cars | DriveIQ",
   description: "Browse and search for your dream car",
 };
 
@@ -17,7 +17,7 @@ async function CarsPage() {
           Browse Cars
         </h1>
         <p className="mt-2 text-gray-600">
-          Explore our complete collection of cars available in the AutoMarket marketplace.
+          Explore our complete collection of cars available in the DriveIQ marketplace.
         </p>
       </div>
 

@@ -1,11 +1,10 @@
 "use server";
 
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { cookies } from "next/headers";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { v4 as uuidv4 } from "uuid";
 import { db } from "@/lib/prisma";
-import { createClient } from "@/lib/supabase";
+import cloudinary from "@/lib/cloudinary";
 import { auth } from "@clerk/nextjs/server";
 import { serializeCarData } from "@/lib/helpers";
 
@@ -25,7 +24,7 @@ export async function processCarImageWithAI(file) {
 
     // Initialize Gemini API
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-3.5-flash" });
 
     // Convert image file to base64
     const base64Image = await fileToBase64(file);
@@ -151,50 +150,22 @@ export async function addCar({ carData, images }) {
     const carId = uuidv4();
     const folderPath = `cars/${carId}`;
 
-    // Initialize Supabase client for server-side operations
-    const cookieStore = await cookies();
-    const supabase = createClient(cookieStore);
-
-    // Upload all images to Supabase storage
+    // Upload all images to Cloudinary
     const imageUrls = [];
 
     for (let i = 0; i < images.length; i++) {
       const base64Data = images[i];
 
-      // Skip if image data is not valid
       if (!base64Data || !base64Data.startsWith("data:image/")) {
         console.warn("Skipping invalid image data");
         continue;
       }
 
-      // Extract the base64 part (remove the data:image/xyz;base64, prefix)
-      const base64 = base64Data.split(",")[1];
-      const imageBuffer = Buffer.from(base64, "base64");
+      const result = await cloudinary.uploader.upload(base64Data, {
+        folder: folderPath,
+      });
 
-      // Determine file extension from the data URL
-      const mimeMatch = base64Data.match(/data:image\/([a-zA-Z0-9]+);/);
-      const fileExtension = mimeMatch ? mimeMatch[1] : "jpeg";
-
-      // Create filename
-      const fileName = `image-${Date.now()}-${i}.${fileExtension}`;
-      const filePath = `${folderPath}/${fileName}`;
-
-      // Upload the file buffer directly
-      const { data, error } = await supabase.storage
-        .from("car-images")
-        .upload(filePath, imageBuffer, {
-          contentType: `image/${fileExtension}`,
-        });
-
-      if (error) {
-        console.error("Error uploading image:", error);
-        throw new Error(`Failed to upload image: ${error.message}`);
-      }
-
-      // Get the public URL for the uploaded file
-      const publicUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/car-images/${filePath}`; // disable cache in config
-
-      imageUrls.push(publicUrl);
+      imageUrls.push(result.secure_url);
     }
 
     if (imageUrls.length === 0) {
@@ -223,8 +194,8 @@ export async function addCar({ carData, images }) {
       },
     });
 
-    // Revalidate the cars list page
     revalidatePath("/admin/cars");
+    revalidateTag("car-filters");
 
     return {
       success: true,
@@ -291,38 +262,24 @@ export async function deleteCar(id) {
       where: { id },
     });
 
-    // Delete the images from Supabase storage
+    // Delete images from Cloudinary
     try {
-      const cookieStore = cookies();
-      const supabase = createClient(cookieStore);
-
-      // Extract file paths from image URLs
-      const filePaths = car.images
+      const publicIds = car.images
         .map((imageUrl) => {
-          const url = new URL(imageUrl);
-          const pathMatch = url.pathname.match(/\/car-images\/(.*)/);
-          return pathMatch ? pathMatch[1] : null;
+          const match = imageUrl.match(/\/upload\/(?:v\d+\/)?(.+)\.[a-z]+$/i);
+          return match ? match[1] : null;
         })
         .filter(Boolean);
 
-      // Delete files from storage if paths were extracted
-      if (filePaths.length > 0) {
-        const { error } = await supabase.storage
-          .from("car-images")
-          .remove(filePaths);
-
-        if (error) {
-          console.error("Error deleting images:", error);
-          // We continue even if image deletion fails
-        }
+      if (publicIds.length > 0) {
+        await cloudinary.api.delete_resources(publicIds);
       }
     } catch (storageError) {
-      console.error("Error with storage operations:", storageError);
-      // Continue with the function even if storage operations fail
+      console.error("Error deleting images from Cloudinary:", storageError);
     }
 
-    // Revalidate the cars list page
     revalidatePath("/admin/cars");
+    revalidateTag("car-filters");
 
     return {
       success: true,
@@ -358,8 +315,8 @@ export async function updateCarStatus(id, { status, featured }) {
       data: updateData,
     });
 
-    // Revalidate the cars list page
     revalidatePath("/admin/cars");
+    revalidateTag("car-filters");
 
     return {
       success: true,

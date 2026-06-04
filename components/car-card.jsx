@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { memo, useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Heart, Car as CarIcon, Loader2 } from "lucide-react";
@@ -13,7 +13,7 @@ import { useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import useFetch from "@/hooks/use-fetch";
 
-export const CarCard = ({ car }) => {
+export const CarCard = memo(function CarCard({ car }) {
   const { isSignedIn } = useAuth();
   const router = useRouter();
   const [isSaved, setIsSaved] = useState(car.wishlisted);
@@ -73,6 +73,7 @@ export const CarCard = ({ car }) => {
                 src={car.images[0]}
                 alt={`${car.make} ${car.model}`}
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="object-cover group-hover:scale-105 transition duration-300"
               />
             </div>
@@ -142,4 +143,4 @@ export const CarCard = ({ car }) => {
       </Card>
     </Link>
   );
-};
+});

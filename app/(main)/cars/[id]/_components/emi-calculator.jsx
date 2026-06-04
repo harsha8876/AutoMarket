@@ -44,8 +44,8 @@ export const EmiCalculator = () => {
   return (
     <Card className="shadow-lg border border-gray-100">
       <CardHeader className="pb-4">
-        <CardTitle className="flex items-center gap-2 text-2xl font-bold text-[#121212]">
-          <Calculator className="w-6 h-6 text-[#30475E]" />
+        <CardTitle className="flex items-center gap-2 text-2xl font-bold text-[#1D1D1F]">
+          <Calculator className="w-6 h-6 text-[#1D1D1F]" />
           EMI Calculator
         </CardTitle>
         <p className="text-gray-500 text-sm">
@@ -124,19 +124,19 @@ export const EmiCalculator = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
           <div className="text-center bg-gray-50 rounded-xl p-6">
             <p className="text-gray-500 text-sm mb-1">Monthly EMI</p>
-            <p className="text-2xl font-bold text-[#30475E]">
+            <p className="text-2xl font-bold text-[#1D1D1F]">
               {formatCurrency(emi)}
             </p>
           </div>
           <div className="text-center bg-gray-50 rounded-xl p-6">
             <p className="text-gray-500 text-sm mb-1">Total Interest</p>
-            <p className="text-2xl font-bold text-[#30475E]">
+            <p className="text-2xl font-bold text-[#1D1D1F]">
               {formatCurrency(totalInterest)}
             </p>
           </div>
           <div className="text-center bg-gray-50 rounded-xl p-6">
             <p className="text-gray-500 text-sm mb-1">Total Payment</p>
-            <p className="text-2xl font-bold text-[#30475E]">
+            <p className="text-2xl font-bold text-[#1D1D1F]">
               {formatCurrency(totalPayment)}
             </p>
           </div>

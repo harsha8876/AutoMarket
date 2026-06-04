@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { ReservationsList } from "./_components/reservation-list";
 
 export const metadata = {
-  title: "My Reservations | Automarket",
+  title: "My Reservations | DriveIQ",
   description: "Manage your test drive reservations",
 };
 

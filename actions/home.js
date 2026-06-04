@@ -4,22 +4,30 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { db } from "@/lib/prisma";
 import aj from "@/lib/arcjet";
 import { request } from "@arcjet/next";
-
-// Function to serialize car data
-function serializeCarData(car) {
-  return {
-    ...car,
-    price: car.price ? parseFloat(car.price.toString()) : 0,
-    createdAt: car.createdAt?.toISOString(),
-    updatedAt: car.updatedAt?.toISOString(),
-  };
-}
+import { auth } from "@clerk/nextjs/server";
+import { serializeCarData } from "@/lib/helpers";
 
 /**
  * Get featured cars for the homepage
  */
 export async function getFeaturedCars(limit = 3) {
   try {
+    const { userId } = await auth();
+    let wishlisted = new Set();
+
+    if (userId) {
+      const dbUser = await db.user.findUnique({
+        where: { clerkUserId: userId },
+      });
+      if (dbUser) {
+        const savedCars = await db.userSavedCar.findMany({
+          where: { userId: dbUser.id },
+          select: { carId: true },
+        });
+        wishlisted = new Set(savedCars.map((s) => s.carId));
+      }
+    }
+
     const cars = await db.car.findMany({
       where: {
         featured: true,
@@ -29,7 +37,7 @@ export async function getFeaturedCars(limit = 3) {
       orderBy: { createdAt: "desc" },
     });
 
-    return cars.map(serializeCarData);
+    return cars.map((car) => serializeCarData(car, wishlisted.has(car.id)));
   } catch (error) {
     throw new Error("Error fetching featured cars:" + error.message);
   }
@@ -79,7 +87,7 @@ export async function processImageSearch(file) {
 
     // Initialize Gemini API
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-3.5-flash" });
 
     // Convert image file to base64
     const base64Image = await fileToBase64(file);

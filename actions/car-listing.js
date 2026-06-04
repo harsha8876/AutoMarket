@@ -3,69 +3,69 @@
 import { serializeCarData } from "@/lib/helpers";
 import { db } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, unstable_cache } from "next/cache";
+
+const _fetchCarFilters = unstable_cache(
+  async () => {
+    const [makes, bodyTypes, fuelTypes, transmissions, priceAggregations] =
+      await Promise.all([
+        db.car.findMany({
+          where: { status: "AVAILABLE" },
+          select: { make: true },
+          distinct: ["make"],
+          orderBy: { make: "asc" },
+        }),
+        db.car.findMany({
+          where: { status: "AVAILABLE" },
+          select: { bodyType: true },
+          distinct: ["bodyType"],
+          orderBy: { bodyType: "asc" },
+        }),
+        db.car.findMany({
+          where: { status: "AVAILABLE" },
+          select: { fuelType: true },
+          distinct: ["fuelType"],
+          orderBy: { fuelType: "asc" },
+        }),
+        db.car.findMany({
+          where: { status: "AVAILABLE" },
+          select: { transmission: true },
+          distinct: ["transmission"],
+          orderBy: { transmission: "asc" },
+        }),
+        db.car.aggregate({
+          where: { status: "AVAILABLE" },
+          _min: { price: true },
+          _max: { price: true },
+        }),
+      ]);
+
+    return {
+      makes: makes.map((item) => item.make),
+      bodyTypes: bodyTypes.map((item) => item.bodyType),
+      fuelTypes: fuelTypes.map((item) => item.fuelType),
+      transmissions: transmissions.map((item) => item.transmission),
+      priceRange: {
+        min: priceAggregations._min.price
+          ? parseFloat(priceAggregations._min.price.toString())
+          : 0,
+        max: priceAggregations._max.price
+          ? parseFloat(priceAggregations._max.price.toString())
+          : 100000,
+      },
+    };
+  },
+  ["car-filters"],
+  { revalidate: 300, tags: ["car-filters"] }
+);
 
 /**
  * Get simplified filters for the car marketplace
  */
 export async function getCarFilters() {
   try {
-    // Get unique makes
-    const makes = await db.car.findMany({
-      where: { status: "AVAILABLE" },
-      select: { make: true },
-      distinct: ["make"],
-      orderBy: { make: "asc" },
-    });
-
-    // Get unique body types
-    const bodyTypes = await db.car.findMany({
-      where: { status: "AVAILABLE" },
-      select: { bodyType: true },
-      distinct: ["bodyType"],
-      orderBy: { bodyType: "asc" },
-    });
-
-    // Get unique fuel types
-    const fuelTypes = await db.car.findMany({
-      where: { status: "AVAILABLE" },
-      select: { fuelType: true },
-      distinct: ["fuelType"],
-      orderBy: { fuelType: "asc" },
-    });
-
-    // Get unique transmissions
-    const transmissions = await db.car.findMany({
-      where: { status: "AVAILABLE" },
-      select: { transmission: true },
-      distinct: ["transmission"],
-      orderBy: { transmission: "asc" },
-    });
-
-    // Get min and max prices using Prisma aggregations
-    const priceAggregations = await db.car.aggregate({
-      where: { status: "AVAILABLE" },
-      _min: { price: true },
-      _max: { price: true },
-    });
-
-    return {
-      success: true,
-      data: {
-        makes: makes.map((item) => item.make),
-        bodyTypes: bodyTypes.map((item) => item.bodyType),
-        fuelTypes: fuelTypes.map((item) => item.fuelType),
-        transmissions: transmissions.map((item) => item.transmission),
-        priceRange: {
-          min: priceAggregations._min.price
-            ? parseFloat(priceAggregations._min.price.toString())
-            : 0,
-          max: priceAggregations._max.price
-            ? parseFloat(priceAggregations._max.price.toString())
-            : 100000,
-        },
-      },
-    };
+    const data = await _fetchCarFilters();
+    return { success: true, data };
   } catch (error) {
     throw new Error("Error fetching car filters:" + error.message);
   }
@@ -232,7 +232,9 @@ export async function toggleSavedCar(carId) {
         },
       });
 
-      revalidatePath(`/saved-cars`);
+      revalidatePath("/saved-cars");
+      revalidatePath("/cars");
+      revalidatePath("/");
       return {
         success: true,
         saved: false,
@@ -248,7 +250,9 @@ export async function toggleSavedCar(carId) {
       },
     });
 
-    revalidatePath(`/saved-cars`);
+    revalidatePath("/saved-cars");
+    revalidatePath("/cars");
+    revalidatePath("/");
     return {
       success: true,
       saved: true,
@@ -302,25 +306,27 @@ export async function getCarById(carId) {
     }
 
     // Check if user has already booked a test drive for this car
-    const existingTestDrive = await db.testDriveBooking.findFirst({
-      where: {
-        carId,
-        userId: dbUser.id,
-        status: { in: ["PENDING", "CONFIRMED", "COMPLETED"] },
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
-
     let userTestDrive = null;
 
-    if (existingTestDrive) {
-      userTestDrive = {
-        id: existingTestDrive.id,
-        status: existingTestDrive.status,
-        bookingDate: existingTestDrive.bookingDate.toISOString(),
-      };
+    if (dbUser) {
+      const existingTestDrive = await db.testDriveBooking.findFirst({
+        where: {
+          carId,
+          userId: dbUser.id,
+          status: { in: ["PENDING", "CONFIRMED", "COMPLETED"] },
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
+
+      if (existingTestDrive) {
+        userTestDrive = {
+          id: existingTestDrive.id,
+          status: existingTestDrive.status,
+          bookingDate: existingTestDrive.bookingDate.toISOString(),
+        };
+      }
     }
 
     // Get dealership info for test drive availability

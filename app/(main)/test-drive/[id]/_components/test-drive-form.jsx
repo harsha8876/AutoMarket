@@ -195,7 +195,7 @@ export function TestDriveForm({ car, testDriveInfo }) {
       <div className="md:col-span-1">
         <Card>
           <CardContent className="p-6">
-            <h2 className="text-xl font-bold mb-4 text-[#30485E]">
+            <h2 className="text-xl font-bold mb-4 text-[#1D1D1F]">
               Car Details
             </h2>
 
@@ -213,11 +213,11 @@ export function TestDriveForm({ car, testDriveInfo }) {
               )}
             </div>
 
-            <h3 className="text-lg font-bold text-[#30485E]">
+            <h3 className="text-lg font-bold text-[#1D1D1F]">
               {car.year} {car.make} {car.model}
             </h3>
 
-            <div className="mt-2 text-xl font-bold text-[#30485E]">
+            <div className="mt-2 text-xl font-bold text-[#1D1D1F]">
               ₹{car.price.toLocaleString()}
             </div>
 
@@ -249,23 +249,27 @@ export function TestDriveForm({ car, testDriveInfo }) {
         {/* Dealership Info */}
         <Card className="mt-6">
           <CardContent className="p-6">
-            <h2 className="text-xl font-bold mb-4 text-[#30485E]">
+            <h2 className="text-xl font-bold mb-4 text-[#1D1D1F]">
               Dealership Info
             </h2>
             <div className="text-sm text-gray-700">
               <p className="font-medium">
-                {dealership?.name || "Automarket Motors"}
+                DriveIQ Motors India
               </p>
               <p className="text-gray-600 mt-1">
-                {dealership?.address || "Address not available"}
+                Level 5, Orion Business Tower
+                Plot 27, Velocity Avenue
+                Bandra Kurla Complex (BKC)
+                Mumbai, Maharashtra 400051
+                India
               </p>
               <p className="text-gray-600 mt-3">
                 <span className="font-medium">Phone:</span>{" "}
-                {dealership?.phone || "Not available"}
+                +91 98123 45678
               </p>
               <p className="text-gray-600">
                 <span className="font-medium">Email:</span>{" "}
-                {dealership?.email || "Not available"}
+                contact@driveiq.in
               </p>
             </div>
           </CardContent>
@@ -276,14 +280,14 @@ export function TestDriveForm({ car, testDriveInfo }) {
       <div className="md:col-span-2">
         <Card>
           <CardContent className="p-6">
-            <h2 className="text-xl font-bold mb-6 text-[#30485E]">
+            <h2 className="text-xl font-bold mb-6 text-[#1D1D1F]">
               Schedule Your Test Drive
             </h2>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
               {/* Date */}
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-[#30485E]">
+                <label className="block text-sm font-medium text-[#1D1D1F]">
                   Select a Date
                 </label>
                 <Controller
@@ -296,7 +300,7 @@ export function TestDriveForm({ car, testDriveInfo }) {
                           <Button
                             variant="outline"
                             className={cn(
-                              "w-full justify-start text-left font-normal border-[#30485E]/40 text-[#30485E]",
+                              "w-full justify-start text-left font-normal border-[#0071E3]/40 text-[#1D1D1F]",
                               !field.value && "text-muted-foreground"
                             )}
                           >
@@ -328,7 +332,7 @@ export function TestDriveForm({ car, testDriveInfo }) {
 
               {/* Time Slot */}
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-[#30485E]">
+                <label className="block text-sm font-medium text-[#1D1D1F]">
                   Select a Time Slot
                 </label>
                 <Controller
@@ -343,14 +347,14 @@ export function TestDriveForm({ car, testDriveInfo }) {
                           !selectedDate || availableTimeSlots.length === 0
                         }
                       >
-                        <SelectTrigger className="border-[#30485E]/40">
+                        <SelectTrigger className="border-[#0071E3]/40">
                           <SelectValue
                             placeholder={
                               !selectedDate
                                 ? "Please select a date first"
                                 : availableTimeSlots.length === 0
-                                ? "No available slots on this date"
-                                : "Select a time slot"
+                                  ? "No available slots on this date"
+                                  : "Select a time slot"
                             }
                           />
                         </SelectTrigger>
@@ -374,7 +378,7 @@ export function TestDriveForm({ car, testDriveInfo }) {
 
               {/* Notes */}
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-[#30485E]">
+                <label className="block text-sm font-medium text-[#1D1D1F]">
                   Additional Notes (Optional)
                 </label>
                 <Controller
@@ -384,7 +388,7 @@ export function TestDriveForm({ car, testDriveInfo }) {
                     <Textarea
                       {...field}
                       placeholder="Any specific questions or requests?"
-                      className="min-h-24 border-[#30485E]/40 focus-visible:ring-[#30485E]"
+                      className="min-h-24 border-[#0071E3]/40 focus-visible:ring-[#0071E3]"
                     />
                   )}
                 />
@@ -393,7 +397,7 @@ export function TestDriveForm({ car, testDriveInfo }) {
               {/* Submit */}
               <Button
                 type="submit"
-                className="w-full bg-[#30485E] hover:bg-[#223346] text-white font-semibold transition-all"
+                className="w-full bg-[#0071E3] hover:bg-[#005BB5] text-white font-semibold transition-all"
                 disabled={bookingInProgress}
               >
                 {bookingInProgress ? (
@@ -408,8 +412,8 @@ export function TestDriveForm({ car, testDriveInfo }) {
             </form>
 
             {/* Info Box */}
-            <div className="mt-8 bg-[#E8EEF4] p-4 rounded-lg">
-              <h3 className="font-medium mb-2 text-[#30485E]">
+            <div className="mt-8 bg-[#E8F0FE] p-4 rounded-lg">
+              <h3 className="font-medium mb-2 text-[#1D1D1F]">
                 What to Expect
               </h3>
               <ul className="space-y-2 text-sm text-gray-700">
@@ -435,7 +439,7 @@ export function TestDriveForm({ car, testDriveInfo }) {
       <Dialog open={showConfirmation} onOpenChange={setShowConfirmation}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="flex items-center gap-2 text-[#30485E]">
+            <DialogTitle className="flex items-center gap-2 text-[#1D1D1F]">
               <CheckCircle2 className="h-5 w-5 text-green-500" />
               Test Drive Booked Successfully
             </DialogTitle>
@@ -463,11 +467,11 @@ export function TestDriveForm({ car, testDriveInfo }) {
                 </div>
                 <div className="flex justify-between">
                   <span className="font-medium">Dealership:</span>
-                  <span>{dealership?.name || "Automarket Motors"}</span>
+                  <span>{dealership?.name || "DriveIQ Motors India"}</span>
                 </div>
               </div>
 
-              <div className="mt-4 bg-[#E8EEF4] p-3 rounded text-sm text-[#30485E]">
+              <div className="mt-4 bg-[#E8F0FE] p-3 rounded text-sm text-[#1D1D1F]">
                 Please arrive 10 minutes early with your driver’s license.
               </div>
             </div>
@@ -476,7 +480,7 @@ export function TestDriveForm({ car, testDriveInfo }) {
           <div className="flex justify-end">
             <Button
               onClick={handleCloseConfirmation}
-              className="bg-[#30485E] hover:bg-[#223346] text-white font-medium"
+              className="bg-[#0071E3] hover:bg-[#005BB5] text-white font-medium"
             >
               Done
             </Button>

@@ -60,14 +60,14 @@ export const LoanCalculator = () => {
   return (
     <div className="bg-white rounded-2xl p-8 shadow-lg">
       <div className="flex items-center mb-6">
-        <Calculator className="w-8 h-8 text-[#30475E] mr-3" />
-        <h3 className="text-2xl font-bold text-[#121212]">Loan Calculator</h3>
+        <Calculator className="w-8 h-8 text-[#1D1D1F] mr-3" />
+        <h3 className="text-2xl font-bold text-[#1D1D1F]">Loan Calculator</h3>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-[#121212] mb-2">
+            <label className="block text-sm font-medium text-[#1D1D1F] mb-2">
               Car Price
             </label>
             <input
@@ -82,13 +82,13 @@ export const LoanCalculator = () => {
             />
             <div className="flex justify-between text-sm text-gray-600 mt-1">
               <span>₹5L</span>
-              <span className="font-semibold text-[#30475E]">{formatCurrency(loanAmount)}</span>
+              <span className="font-semibold text-[#1D1D1F]">{formatCurrency(loanAmount)}</span>
               <span>₹100L</span>
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-[#121212] mb-2">
+            <label className="block text-sm font-medium text-[#1D1D1F] mb-2">
               Down Payment
             </label>
             <input
@@ -103,13 +103,13 @@ export const LoanCalculator = () => {
             />
             <div className="flex justify-between text-sm text-gray-600 mt-1">
               <span>₹0</span>
-              <span className="font-semibold text-[#30475E]">{formatCurrency(downPayment)}</span>
+              <span className="font-semibold text-[#1D1D1F]">{formatCurrency(downPayment)}</span>
               <span>{formatCurrency(loanAmount * 0.5)}</span>
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-[#121212] mb-2">
+            <label className="block text-sm font-medium text-[#1D1D1F] mb-2">
               Interest Rate (% per annum)
             </label>
             <input
@@ -124,13 +124,13 @@ export const LoanCalculator = () => {
             />
             <div className="flex justify-between text-sm text-gray-600 mt-1">
               <span>6%</span>
-              <span className="font-semibold text-[#30475E]">{interestRate}%</span>
+              <span className="font-semibold text-[#1D1D1F]">{interestRate}%</span>
               <span>12%</span>
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-[#121212] mb-2">
+            <label className="block text-sm font-medium text-[#1D1D1F] mb-2">
               Loan Tenure (Years)
             </label>
             <input
@@ -145,22 +145,22 @@ export const LoanCalculator = () => {
             />
             <div className="flex justify-between text-sm text-gray-600 mt-1">
               <span>1 Year</span>
-              <span className="font-semibold text-[#30475E]">{loanTenure} Years</span>
+              <span className="font-semibold text-[#1D1D1F]">{loanTenure} Years</span>
               <span>7 Years</span>
             </div>
           </div>
         </div>
 
-        <div className="bg-[#F5F5F5] rounded-xl p-6">
-          <h4 className="text-lg font-bold text-[#121212] mb-4">Loan Summary</h4>
+        <div className="bg-white rounded-xl p-6">
+          <h4 className="text-lg font-bold text-[#1D1D1F] mb-4">Loan Summary</h4>
           
           <div className="space-y-4">
             <div className="flex justify-between items-center p-4 bg-white rounded-lg">
               <div className="flex items-center">
-                <IndianRupee className="w-5 h-5 text-[#30475E] mr-2" />
+                <IndianRupee className="w-5 h-5 text-[#1D1D1F] mr-2" />
                 <span className="text-gray-700">Monthly EMI</span>
               </div>
-              <span className="text-xl font-bold text-[#30475E]">{formatCurrency(emi)}</span>
+              <span className="text-xl font-bold text-[#1D1D1F]">{formatCurrency(emi)}</span>
             </div>
 
             <div className="flex justify-between items-center p-4 bg-white rounded-lg">
@@ -180,7 +180,7 @@ export const LoanCalculator = () => {
             </div>
           </div>
 
-          <button className="w-full mt-6 bg-[#30475E] text-white py-3 rounded-lg hover:bg-[#121212] transition-all duration-300 font-medium">
+          <button className="w-full mt-6 bg-[#0071E3] text-white py-3 rounded-lg hover:bg-[#005BB5] transition-all duration-300 font-medium">
             Apply for Loan
           </button>
         </div>

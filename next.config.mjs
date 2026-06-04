@@ -1,12 +1,10 @@
 const nextConfig = {
-  experimental: {
-    serverComponentsHmrCache: false,
-  },
   images: {
+    formats: ["image/avif", "image/webp"],
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "augjllolpzqqkqwxjcip.supabase.co",
+        hostname: "res.cloudinary.com",
       },
     ],
   },

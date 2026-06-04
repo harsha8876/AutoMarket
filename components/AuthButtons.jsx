@@ -14,7 +14,7 @@ const AuthButtons = ({ isAdminPage, user }) => {
               <Button variant="outline">Login</Button>
             </SignInButton>
             <SignUpButton>
-              <Button className="bg-[#30475E] text-white px-4 py-2 rounded-lg hover:bg-[#121212]">
+              <Button className="bg-[#0071E3] text-white px-4 py-2 rounded-lg hover:bg-[#005BB5]">
                 Sign up
               </Button>
             </SignUpButton>

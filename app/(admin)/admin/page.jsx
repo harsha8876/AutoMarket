@@ -3,7 +3,7 @@ import { Dashboard } from "../_components/dashboard";
 
 export const metadata = {
   title: "Dashboard | Automartket Admin",
-  description: "Admin dashboard for AutoMarket marketplace",
+  description: "Admin dashboard for DriveIQ marketplace",
 };
 
 export default async function AdminDashboardPage() {
