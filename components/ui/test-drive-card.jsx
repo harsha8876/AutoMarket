@@ -138,7 +138,7 @@ export function TestDriveCard({
               <Button
                 variant="outline"
                 size="sm"
-                className="w-full sm:w-auto bg-[#0071E3] hover:bg-[#005BB5] text-white border-none transition-all"
+                className="w-full sm:w-auto bg-primary hover:bg-primary-hover text-white border-none transition-all cursor-pointer"
                 asChild
               >
                 <Link

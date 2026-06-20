@@ -109,9 +109,9 @@ export default function CarDetailPage({ car, testDriveInfo }) {
 
   if (!car) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-gray-600 bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center text-gray-600 bg-background">
         <div className="text-center">
-          <h2 className="text-2xl font-semibold text-[#1D1D1F] mb-2">Car Not Found</h2>
+          <h2 className="text-2xl font-semibold text-foreground mb-2">Car Not Found</h2>
           <p className="text-gray-500">The vehicle you're looking for doesn't exist.</p>
         </div>
       </div>
@@ -125,7 +125,7 @@ export default function CarDetailPage({ car, testDriveInfo }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <button
             onClick={() => router.back()}
-            className="flex items-center text-[#1D1D1F] hover:text-[#1D1D1F] transition-colors font-medium"
+            className="flex items-center text-foreground hover:text-foreground/80 transition-colors font-medium cursor-pointer"
           >
             <ArrowLeft className="w-5 h-5 mr-2" />
             <span>Back</span>
@@ -194,7 +194,7 @@ export default function CarDetailPage({ car, testDriveInfo }) {
                       key={index}
                       className={`relative cursor-pointer rounded-md h-20 w-28 flex-shrink-0 transition-all duration-300 ${
                         index === currentImageIndex
-                          ? "ring-2 ring-[#0071E3]"
+                          ? "ring-2 ring-primary"
                           : "opacity-75 hover:opacity-100"
                       }`}
                       onClick={() => setCurrentImageIndex(index)}
@@ -213,28 +213,28 @@ export default function CarDetailPage({ car, testDriveInfo }) {
 
             {/* Specifications */}
             <div className="bg-white rounded-3xl shadow-lg p-8">
-              <h2 className="text-xl font-bold text-[#1D1D1F] mb-6">Specifications</h2>
+              <h2 className="text-xl font-bold text-foreground mb-6">Specifications</h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               <div className="text-center p-4 bg-gray-50 rounded-2xl">
-                <Fuel className="w-8 h-8 mx-auto mb-3 text-[#1D1D1F]" />
+                <Fuel className="w-8 h-8 mx-auto mb-3 text-foreground" />
                 <p className="text-sm text-gray-500 mb-1">Fuel</p>
-                <p className="font-bold text-[#1D1D1F]">{car.fuelType}</p>
+                <p className="font-bold text-foreground">{car.fuelType}</p>
               </div>
               <div className="text-center p-4 bg-gray-50 rounded-2xl">
-                <Gauge className="w-8 h-8 mx-auto mb-3 text-[#1D1D1F]" />
+                <Gauge className="w-8 h-8 mx-auto mb-3 text-foreground" />
                 <p className="text-sm text-gray-500 mb-1">Power</p>
-                <p className="font-bold text-[#1D1D1F]">{car.bhp ? `${car.bhp} BHP` : "—"}</p>
+                <p className="font-bold text-foreground">{car.bhp ? `${car.bhp} BHP` : "—"}</p>
               </div>
               <div className="text-center p-4 bg-gray-50 rounded-2xl">
-                <Calendar className="w-8 h-8 mx-auto mb-3 text-[#1D1D1F]" />
+                <Calendar className="w-8 h-8 mx-auto mb-3 text-foreground" />
                 <p className="text-sm text-gray-500 mb-1">Year</p>
-                <p className="font-bold text-[#1D1D1F]">{car.year}</p>
+                <p className="font-bold text-foreground">{car.year}</p>
               </div>
               {/* 🔄 Replaced Rating with Color */}
               <div className="text-center p-4 bg-gray-50 rounded-2xl">
-                <Star className="w-8 h-8 mx-auto mb-3 text-[#1D1D1F] fill-current" />
+                <Star className="w-8 h-8 mx-auto mb-3 text-foreground fill-current" />
                 <p className="text-sm text-gray-500 mb-1">Color</p>
-                <p className="font-bold text-[#1D1D1F]">{car.color || "—"}</p>
+                <p className="font-bold text-foreground">{car.color || "—"}</p>
               </div>
             </div>
             </div>
@@ -244,7 +244,7 @@ export default function CarDetailPage({ car, testDriveInfo }) {
           <div className="lg:col-span-1 space-y-6">
             <div className="bg-white rounded-3xl shadow-lg p-8 sticky top-24">
               <div className="mb-6">
-                <h1 className="text-3xl font-bold text-[#1D1D1F] mb-2">
+                <h1 className="text-3xl font-bold text-foreground mb-2">
                    {car.make} {car.model}
                 </h1>
                 <div className="flex items-center gap-2 text-gray-600 mb-4">
@@ -253,7 +253,7 @@ export default function CarDetailPage({ car, testDriveInfo }) {
                 </div>
 
                 <div className="flex items-center gap-2 mb-6">
-                  <div className="flex items-center bg-[#0071E3] text-white px-3 py-1 rounded-full">
+                  <div className="flex items-center bg-primary text-white px-3 py-1 rounded-full">
                     <Star className="w-4 h-4 mr-1 fill-current" />
                     <span className="font-semibold">{car.rating || "—"}</span>
                   </div>
@@ -267,7 +267,7 @@ export default function CarDetailPage({ car, testDriveInfo }) {
               {/* Price + Buttons */}
               <div className="border-t border-gray-200 pt-6 mb-6">
                 <p className="text-sm text-gray-500 mb-1">Starting Price</p>
-                <p className="text-4xl font-bold text-[#1D1D1F]">
+                <p className="text-4xl font-bold text-foreground">
                   {formatCurrency(car.price)}
                 </p>
               </div>
@@ -275,7 +275,7 @@ export default function CarDetailPage({ car, testDriveInfo }) {
               <div className="space-y-3">
                 {/* <Button
                   onClick={handleGetBestOffer}
-                  className="w-full py-4 rounded-2xl bg-[#0071E3] text-white font-semibold hover:bg-[#005BB5] transition-all hover:shadow-xl"
+                  className="w-full py-4 rounded-2xl bg-primary text-white font-semibold hover:bg-primary-hover transition-all hover:shadow-xl"
                 >
                   Get Best Offer
                 </Button> */}
@@ -284,10 +284,10 @@ export default function CarDetailPage({ car, testDriveInfo }) {
                   onClick={handleBookTestDrive}
                   variant="outline"
                   disabled={!!testDriveInfo?.userTestDrive}
-                  className={`w-full py-4 rounded-2xl font-semibold transition-all flex items-center justify-center gap-2 ${
+                  className={`w-full py-4 rounded-2xl font-semibold transition-all flex items-center justify-center gap-2 cursor-pointer ${
                     testDriveInfo?.userTestDrive
                       ? "bg-gray-100 text-gray-500 border-gray-300 cursor-not-allowed"
-                      : "bg-[#0071E3] text-white hover:bg-[#005BB5] hover:shadow-xl"
+                      : "bg-primary text-white hover:bg-primary-hover hover:shadow-xl"
                   }`}
                 >
                   <Calendar className="w-5 h-5" />
@@ -303,7 +303,7 @@ export default function CarDetailPage({ car, testDriveInfo }) {
                   <DialogTrigger asChild>
                     <Button
                       variant="outline"
-                      className="w-full py-4 rounded-2xl border-2 text-[#1D1D1F] font-semibold hover:bg-[#0071E3] hover:text-white flex items-center justify-center gap-2"
+                      className="w-full py-4 rounded-2xl border-2 text-foreground font-semibold hover:bg-primary hover:text-white flex items-center justify-center gap-2 cursor-pointer"
                     >
                       <Currency className="w-5 h-5" />
                       EMI Calculator
@@ -345,7 +345,7 @@ export default function CarDetailPage({ car, testDriveInfo }) {
           <div className="flex flex-col md:flex-row gap-6 justify-between">
             {/* Dealership Name and Address */}
             <div className="flex items-start gap-3">
-              <LocateFixed className="h-5 w-5 text-blue-600 mt-1 flex-shrink-0" />
+              <LocateFixed className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
               <div>
                 <h4 className="font-medium">DriveIQ Motors India</h4>
                 <p className="text-gray-600">

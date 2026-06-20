@@ -5,10 +5,10 @@ import { Button } from "@/components/ui/button";
 
 export default function BuyingSellingPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-16 px-6 md:px-12 lg:px-24">
+    <div className="min-h-screen bg-gradient-to-b from-background to-white py-16 px-6 md:px-12 lg:px-24">
       {/* Header Section */}
       <div className="max-w-4xl mx-auto text-center mb-12">
-        <h1 className="text-4xl font-bold text-[#1D1D1F] mb-4">
+        <h1 className="text-4xl font-bold text-foreground mb-4">
           Buying & Selling Cars Made Easy
         </h1>
         <p className="text-gray-600 text-lg">
@@ -21,7 +21,7 @@ export default function BuyingSellingPage() {
       <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-16">
         <div className="bg-white p-8 rounded-3xl shadow-lg text-center">
           <CheckCircle className="text-green-500 w-10 h-10 mx-auto mb-4" />
-          <h3 className="text-xl font-semibold text-[#1D1D1F] mb-2">
+          <h3 className="text-xl font-semibold text-foreground mb-2">
             Expert Guidance
           </h3>
           <p className="text-gray-600 text-sm">
@@ -31,7 +31,7 @@ export default function BuyingSellingPage() {
         </div>
         <div className="bg-white p-8 rounded-3xl shadow-lg text-center">
           <CheckCircle className="text-green-500 w-10 h-10 mx-auto mb-4" />
-          <h3 className="text-xl font-semibold text-[#1D1D1F] mb-2">
+          <h3 className="text-xl font-semibold text-foreground mb-2">
             Best Deals
           </h3>
           <p className="text-gray-600 text-sm">
@@ -41,7 +41,7 @@ export default function BuyingSellingPage() {
         </div>
         <div className="bg-white p-8 rounded-3xl shadow-lg text-center">
           <CheckCircle className="text-green-500 w-10 h-10 mx-auto mb-4" />
-          <h3 className="text-xl font-semibold text-[#1D1D1F] mb-2">
+          <h3 className="text-xl font-semibold text-foreground mb-2">
             Wide Selection
           </h3>
           <p className="text-gray-600 text-sm">
@@ -53,33 +53,33 @@ export default function BuyingSellingPage() {
 
       {/* Process Section */}
       <div className="max-w-5xl mx-auto text-center mb-20">
-        <h2 className="text-3xl font-bold text-[#1D1D1F] mb-8">
+        <h2 className="text-3xl font-bold text-foreground mb-8">
           How It Works
         </h2>
         <div className="grid md:grid-cols-4 gap-6 text-center">
           <div className="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition">
-            <Car className="w-10 h-10 text-[#1D1D1F] mx-auto mb-3" />
+            <Car className="w-10 h-10 text-foreground mx-auto mb-3" />
             <h4 className="font-semibold mb-2">Browse Cars</h4>
             <p className="text-sm text-gray-600">
               Explore new and pre-owned vehicles available at best prices.
             </p>
           </div>
           <div className="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition">
-            <ClipboardList className="w-10 h-10 text-[#1D1D1F] mx-auto mb-3" />
+            <ClipboardList className="w-10 h-10 text-foreground mx-auto mb-3" />
             <h4 className="font-semibold mb-2">Evaluate</h4>
             <p className="text-sm text-gray-600">
               Compare models, prices, and features with our detailed listings.
             </p>
           </div>
           <div className="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition">
-            <Handshake className="w-10 h-10 text-[#1D1D1F] mx-auto mb-3" />
+            <Handshake className="w-10 h-10 text-foreground mx-auto mb-3" />
             <h4 className="font-semibold mb-2">Buy or Sell</h4>
             <p className="text-sm text-gray-600">
               Securely complete your transaction through trusted dealerships.
             </p>
           </div>
           <div className="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition">
-            <Phone className="w-10 h-10 text-[#1D1D1F] mx-auto mb-3" />
+            <Phone className="w-10 h-10 text-foreground mx-auto mb-3" />
             <h4 className="font-semibold mb-2">Get Support</h4>
             <p className="text-sm text-gray-600">
               Our support team assists with paperwork, financing, and delivery.
@@ -89,7 +89,7 @@ export default function BuyingSellingPage() {
       </div>
 
       {/* CTA Section */}
-      <div className="max-w-3xl mx-auto text-center bg-[#0071E3] text-white rounded-3xl p-10 shadow-lg">
+      <div className="max-w-3xl mx-auto text-center bg-primary text-white rounded-3xl p-10 shadow-lg">
         <h3 className="text-2xl font-semibold mb-3">
           Ready to buy ?
         </h3>
@@ -98,7 +98,7 @@ export default function BuyingSellingPage() {
         </p>
         <Button
           onClick={() => (window.location.href = "/cars")}
-          className="bg-white text-[#1D1D1F] font-semibold px-6 py-3 rounded-xl hover:bg-gray-100"
+          className="bg-white text-primary font-semibold px-6 py-3 rounded-xl hover:bg-gray-100 cursor-pointer"
         >
           Explore Cars
         </Button>

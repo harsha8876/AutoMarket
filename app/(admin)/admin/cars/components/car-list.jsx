@@ -143,7 +143,7 @@ const Car_list = () => {
 
         <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
           <Button
-            className="bg-primary-600 hover:bg-blue-300 cursor-pointer text-black px-4 py-2 rounded-lg flex items-center gap-2 transition-all duration-300 transform hover:scale-105 w-full sm:w-auto justify-center"
+            className="bg-primary hover:bg-primary-hover cursor-pointer text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-all duration-300 transform hover:scale-105 w-full sm:w-auto justify-center"
             onClick={() => router.push("/admin/cars/create")}
           >
             <Plus className="h-4 w-4" />

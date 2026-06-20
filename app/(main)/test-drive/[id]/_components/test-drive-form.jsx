@@ -195,7 +195,7 @@ export function TestDriveForm({ car, testDriveInfo }) {
       <div className="md:col-span-1">
         <Card>
           <CardContent className="p-6">
-            <h2 className="text-xl font-bold mb-4 text-[#1D1D1F]">
+            <h2 className="text-xl font-bold mb-4 text-foreground">
               Car Details
             </h2>
 
@@ -213,11 +213,11 @@ export function TestDriveForm({ car, testDriveInfo }) {
               )}
             </div>
 
-            <h3 className="text-lg font-bold text-[#1D1D1F]">
+            <h3 className="text-lg font-bold text-foreground">
               {car.year} {car.make} {car.model}
             </h3>
 
-            <div className="mt-2 text-xl font-bold text-[#1D1D1F]">
+            <div className="mt-2 text-xl font-bold text-foreground">
               ₹{car.price.toLocaleString()}
             </div>
 
@@ -249,7 +249,7 @@ export function TestDriveForm({ car, testDriveInfo }) {
         {/* Dealership Info */}
         <Card className="mt-6">
           <CardContent className="p-6">
-            <h2 className="text-xl font-bold mb-4 text-[#1D1D1F]">
+            <h2 className="text-xl font-bold mb-4 text-foreground">
               Dealership Info
             </h2>
             <div className="text-sm text-gray-700">
@@ -280,14 +280,14 @@ export function TestDriveForm({ car, testDriveInfo }) {
       <div className="md:col-span-2">
         <Card>
           <CardContent className="p-6">
-            <h2 className="text-xl font-bold mb-6 text-[#1D1D1F]">
+            <h2 className="text-xl font-bold mb-6 text-foreground">
               Schedule Your Test Drive
             </h2>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
               {/* Date */}
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-[#1D1D1F]">
+                <label className="block text-sm font-medium text-foreground">
                   Select a Date
                 </label>
                 <Controller
@@ -300,7 +300,7 @@ export function TestDriveForm({ car, testDriveInfo }) {
                           <Button
                             variant="outline"
                             className={cn(
-                              "w-full justify-start text-left font-normal border-[#0071E3]/40 text-[#1D1D1F]",
+                              "w-full justify-start text-left font-normal border-primary/40 text-foreground",
                               !field.value && "text-muted-foreground"
                             )}
                           >
@@ -332,7 +332,7 @@ export function TestDriveForm({ car, testDriveInfo }) {
 
               {/* Time Slot */}
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-[#1D1D1F]">
+                <label className="block text-sm font-medium text-foreground">
                   Select a Time Slot
                 </label>
                 <Controller
@@ -347,7 +347,7 @@ export function TestDriveForm({ car, testDriveInfo }) {
                           !selectedDate || availableTimeSlots.length === 0
                         }
                       >
-                        <SelectTrigger className="border-[#0071E3]/40">
+                        <SelectTrigger className="border-primary/40">
                           <SelectValue
                             placeholder={
                               !selectedDate
@@ -378,7 +378,7 @@ export function TestDriveForm({ car, testDriveInfo }) {
 
               {/* Notes */}
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-[#1D1D1F]">
+                <label className="block text-sm font-medium text-foreground">
                   Additional Notes (Optional)
                 </label>
                 <Controller
@@ -388,7 +388,7 @@ export function TestDriveForm({ car, testDriveInfo }) {
                     <Textarea
                       {...field}
                       placeholder="Any specific questions or requests?"
-                      className="min-h-24 border-[#0071E3]/40 focus-visible:ring-[#0071E3]"
+                      className="min-h-24 border-primary/40 focus-visible:ring-primary"
                     />
                   )}
                 />
@@ -397,7 +397,7 @@ export function TestDriveForm({ car, testDriveInfo }) {
               {/* Submit */}
               <Button
                 type="submit"
-                className="w-full bg-[#0071E3] hover:bg-[#005BB5] text-white font-semibold transition-all"
+                className="w-full bg-primary hover:bg-primary-hover text-white font-semibold transition-all cursor-pointer"
                 disabled={bookingInProgress}
               >
                 {bookingInProgress ? (
@@ -412,8 +412,8 @@ export function TestDriveForm({ car, testDriveInfo }) {
             </form>
 
             {/* Info Box */}
-            <div className="mt-8 bg-[#E8F0FE] p-4 rounded-lg">
-              <h3 className="font-medium mb-2 text-[#1D1D1F]">
+            <div className="mt-8 bg-primary-soft p-4 rounded-lg">
+              <h3 className="font-medium mb-2 text-foreground">
                 What to Expect
               </h3>
               <ul className="space-y-2 text-sm text-gray-700">
@@ -439,7 +439,7 @@ export function TestDriveForm({ car, testDriveInfo }) {
       <Dialog open={showConfirmation} onOpenChange={setShowConfirmation}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="flex items-center gap-2 text-[#1D1D1F]">
+            <DialogTitle className="flex items-center gap-2 text-foreground">
               <CheckCircle2 className="h-5 w-5 text-green-500" />
               Test Drive Booked Successfully
             </DialogTitle>
@@ -471,7 +471,7 @@ export function TestDriveForm({ car, testDriveInfo }) {
                 </div>
               </div>
 
-              <div className="mt-4 bg-[#E8F0FE] p-3 rounded text-sm text-[#1D1D1F]">
+              <div className="mt-4 bg-primary-soft p-3 rounded text-sm text-foreground">
                 Please arrive 10 minutes early with your driver’s license.
               </div>
             </div>
@@ -480,7 +480,7 @@ export function TestDriveForm({ car, testDriveInfo }) {
           <div className="flex justify-end">
             <Button
               onClick={handleCloseConfirmation}
-              className="bg-[#0071E3] hover:bg-[#005BB5] text-white font-medium"
+              className="bg-primary hover:bg-primary-hover text-white font-medium cursor-pointer"
             >
               Done
             </Button>

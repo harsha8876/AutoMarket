@@ -3,14 +3,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { Heart, CarFront, Layout, ArrowLeft } from "lucide-react";
 import { checkUser } from "@/lib/checkUser";
-import AuthButtons from "./AuthButtons"; // client-only
+import AuthButtons from "./AuthButtons";
+import HeaderBackground from "./HeaderBackground";
 
 const Header = async ({ isAdminPage = false }) => {
-  const user = await checkUser(); // ✅ runs on server
+  const user = await checkUser();
   const isAdmin = user?.role === "ADMIN";
-
   return (
-    <header className="fixed top-0 w-full bg-white backdrop-blur-md z-50 border-b">
+    <HeaderBackground>
       <nav className="mx-auto px-4 py-4 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center">
@@ -46,7 +46,7 @@ const Header = async ({ isAdminPage = false }) => {
               )}
               {user && (
                 <a href="/saved-cars">
-                  <button className="flex items-center gap-2 bg-[#0071E3] text-white px-3 py-1 rounded-md hover:bg-[#005BB5] cursor-pointer">
+                  <button className="flex items-center gap-2 bg-primary text-white px-3 py-1 rounded-md hover:bg-primary-hover cursor-pointer">
                     <Heart size={18} />
                     <span className="hidden md:inline">Saved Cars</span>
                   </button>
@@ -68,7 +68,7 @@ const Header = async ({ isAdminPage = false }) => {
           <AuthButtons isAdminPage={isAdminPage} user={user} />
         </div>
       </nav>
-    </header>
+    </HeaderBackground>
   );
 };
 

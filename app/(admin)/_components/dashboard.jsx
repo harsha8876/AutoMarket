@@ -41,16 +41,16 @@ export function Dashboard({ initialData }) {
         onValueChange={setActiveTab}
         className="w-full"
       >
-        <TabsList className="bg-[#F0F4FF] text-[#1D1D1F] rounded-xl mb-4">
+        <TabsList className="bg-surface-muted text-foreground rounded-xl mb-4">
           <TabsTrigger
             value="overview"
-            className="data-[state=active]:bg-[#0071E3] data-[state=active]:text-white rounded-lg px-4 py-2 transition-all cursor-pointer"
+            className="data-[state=active]:bg-primary data-[state=active]:text-white rounded-lg px-4 py-2 transition-all cursor-pointer"
           >
             Overview
           </TabsTrigger>
           <TabsTrigger
             value="test-drives"
-            className="data-[state=active]:bg-[#0071E3] data-[state=active]:text-white rounded-lg px-4 py-2 transition-all cursor-pointer"
+            className="data-[state=active]:bg-primary data-[state=active]:text-white rounded-lg px-4 py-2 transition-all cursor-pointer"
           >
             Test Drives
           </TabsTrigger>
@@ -60,30 +60,30 @@ export function Dashboard({ initialData }) {
         <TabsContent value="overview" className="space-y-6">
           {/* KPI Summary */}
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            <Card className="bg-white shadow-sm border border-[#E5E8EC] hover:shadow-md transition-all">
+            <Card className="bg-white shadow-sm border border-border hover:shadow-md transition-all">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-[#1D1D1F]">
+                <CardTitle className="text-sm font-medium text-foreground">
                   Total Cars
                 </CardTitle>
-                <Car className="h-4 w-4 text-[#1D1D1F]" />
+                <Car className="h-4 w-4 text-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-[#1D1D1F]">{cars.total}</div>
+                <div className="text-3xl font-bold text-foreground">{cars.total}</div>
                 <p className="text-xs text-gray-500">
                   {cars.available} available, {cars.sold} sold
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="bg-white shadow-sm border border-[#E5E8EC] hover:shadow-md transition-all">
+            <Card className="bg-white shadow-sm border border-border hover:shadow-md transition-all">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-[#1D1D1F]">
+                <CardTitle className="text-sm font-medium text-foreground">
                   Test Drives
                 </CardTitle>
-                <Calendar className="h-4 w-4 text-[#1D1D1F]" />
+                <Calendar className="h-4 w-4 text-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-[#1D1D1F]">
+                <div className="text-3xl font-bold text-foreground">
                   {testDrives.total}
                 </div>
                 <p className="text-xs text-gray-500">
@@ -92,30 +92,30 @@ export function Dashboard({ initialData }) {
               </CardContent>
             </Card>
 
-            <Card className="bg-white shadow-sm border border-[#E5E8EC] hover:shadow-md transition-all">
+            <Card className="bg-white shadow-sm border border-border hover:shadow-md transition-all">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-[#1D1D1F]">
+                <CardTitle className="text-sm font-medium text-foreground">
                   Conversion Rate
                 </CardTitle>
-                <TrendingUp className="h-4 w-4 text-[#1D1D1F]" />
+                <TrendingUp className="h-4 w-4 text-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-[#2F7E77]">
+                <div className="text-3xl font-bold text-primary">
                   {testDrives.conversionRate}%
                 </div>
                 <p className="text-xs text-gray-500">From test drives to sales</p>
               </CardContent>
             </Card>
 
-            <Card className="bg-white shadow-sm border border-[#E5E8EC] hover:shadow-md transition-all">
+            <Card className="bg-white shadow-sm border border-border hover:shadow-md transition-all">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-[#1D1D1F]">
+                <CardTitle className="text-sm font-medium text-foreground">
                   Cars Sold
                 </CardTitle>
-                <DollarSign className="h-4 w-4 text-[#1D1D1F]" />
+                <DollarSign className="h-4 w-4 text-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-[#1D1D1F]">{cars.sold}</div>
+                <div className="text-3xl font-bold text-foreground">{cars.sold}</div>
                 <p className="text-xs text-gray-500">
                   {((cars.sold / cars.total) * 100).toFixed(1)}% of inventory
                 </p>
@@ -124,26 +124,26 @@ export function Dashboard({ initialData }) {
           </div>
 
           {/* Dealership Summary */}
-          <Card className="border border-[#E5E8EC] bg-white shadow-sm">
+          <Card className="border border-border bg-white shadow-sm">
             <CardHeader>
-              <CardTitle className="text-[#1D1D1F]">Dealership Summary</CardTitle>
+              <CardTitle className="text-foreground">Dealership Summary</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid md:grid-cols-2 gap-6">
-                <div className="bg-[#F7FAFC] p-4 rounded-xl border border-[#E5E8EC]">
-                  <h3 className="font-medium text-sm text-[#1D1D1F] mb-2">
+                <div className="bg-surface-muted p-4 rounded-xl border border-border">
+                  <h3 className="font-medium text-sm text-foreground mb-2">
                     Car Inventory
                   </h3>
                   <div className="flex items-center">
                     <div className="w-full bg-gray-200 rounded-full h-2.5">
                       <div
-                        className="bg-[#0071E3] h-2.5 rounded-full"
+                        className="bg-primary h-2.5 rounded-full"
                         style={{
                           width: `${(cars.available / cars.total) * 100}%`,
                         }}
                       ></div>
                     </div>
-                    <span className="ml-2 text-sm text-[#1D1D1F]">
+                    <span className="ml-2 text-sm text-foreground">
                       {((cars.available / cars.total) * 100).toFixed(0)}%
                     </span>
                   </div>
@@ -152,14 +152,14 @@ export function Dashboard({ initialData }) {
                   </p>
                 </div>
 
-                <div className="bg-[#F7FAFC] p-4 rounded-xl border border-[#E5E8EC]">
-                  <h3 className="font-medium text-sm text-[#1D1D1F] mb-2">
+                <div className="bg-surface-muted p-4 rounded-xl border border-border">
+                  <h3 className="font-medium text-sm text-foreground mb-2">
                     Test Drive Success
                   </h3>
                   <div className="flex items-center">
                     <div className="w-full bg-gray-200 rounded-full h-2.5">
                       <div
-                        className="bg-[#2F7E77] h-2.5 rounded-full"
+                        className="bg-primary h-2.5 rounded-full"
                         style={{
                           width: `${
                             (testDrives.completed / (testDrives.total || 1)) *
@@ -168,7 +168,7 @@ export function Dashboard({ initialData }) {
                         }}
                       ></div>
                     </div>
-                    <span className="ml-2 text-sm text-[#1D1D1F]">
+                    <span className="ml-2 text-sm text-foreground">
                       {(
                         (testDrives.completed / (testDrives.total || 1)) *
                         100
@@ -189,21 +189,21 @@ export function Dashboard({ initialData }) {
         <TabsContent value="test-drives" className="space-y-6">
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
             {[
-              { label: "Total Bookings", value: testDrives.total, icon: Calendar, color: "#0071E3" },
+              { label: "Total Bookings", value: testDrives.total, icon: Calendar, color: "var(--primary-color)" },
               { label: "Pending", value: testDrives.pending, icon: Clock, color: "#E5A000" },
-              { label: "Confirmed", value: testDrives.confirmed, icon: CheckCircle, color: "#2F7E77" },
-              { label: "Completed", value: testDrives.completed, icon: CheckCircle, color: "#0077CC" },
+              { label: "Confirmed", value: testDrives.confirmed, icon: CheckCircle, color: "var(--primary-color)" },
+              { label: "Completed", value: testDrives.completed, icon: CheckCircle, color: "var(--primary-color)" },
               { label: "Cancelled", value: testDrives.cancelled, icon: XCircle, color: "#D93A3A" },
             ].map((card, idx) => (
-              <Card key={idx} className="bg-white border border-[#E5E8EC] shadow-sm hover:shadow-md transition-all">
+              <Card key={idx} className="bg-white border border-border shadow-sm hover:shadow-md transition-all">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium text-[#1D1D1F]">
+                  <CardTitle className="text-sm font-medium text-foreground">
                     {card.label}
                   </CardTitle>
                   <card.icon className="h-4 w-4" style={{ color: card.color }} />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-3xl font-bold text-[#1D1D1F]">
+                  <div className="text-3xl font-bold text-foreground">
                     {card.value}
                   </div>
                 </CardContent>

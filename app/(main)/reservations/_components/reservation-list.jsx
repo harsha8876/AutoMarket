@@ -31,11 +31,11 @@ export function ReservationsList({ initialData }) {
   // No reservations
   if (initialData?.data?.length === 0) {
     return (
-      <div className="min-h-[400px] flex flex-col items-center justify-center text-center p-8 border rounded-2xl bg-[#F5F7FA] shadow-sm">
-        <div className="bg-[#E8F0FE] p-4 rounded-full mb-4">
-          <Calendar className="h-8 w-8 text-[#1D1D1F]" />
+      <div className="min-h-[400px] flex flex-col items-center justify-center text-center p-8 border rounded-2xl bg-surface-muted shadow-sm">
+        <div className="bg-primary-soft p-4 rounded-full mb-4">
+          <Calendar className="h-8 w-8 text-foreground" />
         </div>
-        <h3 className="text-xl font-semibold text-[#1D1D1F] mb-2">
+        <h3 className="text-xl font-semibold text-foreground mb-2">
           No Reservations Found
         </h3>
         <p className="text-gray-600 mb-6 max-w-md">
@@ -44,7 +44,7 @@ export function ReservationsList({ initialData }) {
         </p>
         <Button
           asChild
-          className="bg-[#0071E3] hover:bg-[#005BB5] text-white px-6 py-2 rounded-lg font-medium transition-all"
+          className="bg-primary hover:bg-primary-hover text-white px-6 py-2 rounded-lg font-medium transition-all cursor-pointer"
         >
           <Link href="/cars">Browse Cars</Link>
         </Button>
@@ -56,7 +56,7 @@ export function ReservationsList({ initialData }) {
     <div className="space-y-10">
       {/* Upcoming Bookings */}
       <div>
-        <h2 className="text-2xl font-bold mb-4 text-[#1D1D1F] border-b border-[#E5E7EB] pb-2">
+        <h2 className="text-2xl font-bold mb-4 text-foreground border-b border-border pb-2">
           Upcoming Test Drives
         </h2>
         {upcomingBookings.length === 0 ? (
@@ -81,7 +81,7 @@ export function ReservationsList({ initialData }) {
       {/* Past Bookings */}
       {pastBookings.length > 0 && (
         <div>
-          <h2 className="text-2xl font-bold mb-4 text-[#1D1D1F] border-b border-[#E5E7EB] pb-2">
+          <h2 className="text-2xl font-bold mb-4 text-foreground border-b border-border pb-2">
             Past Test Drives
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "../components/Header";
+import ConditionalMain from "../components/ConditionalMain";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "sonner";
 
@@ -17,7 +18,7 @@ export default function RootLayout({ children }) {
       <html lang="en">
         <body className={inter.className}>
           <Header />
-          <main className="min-h-screen pt-20">{children}</main>
+          <ConditionalMain>{children}</ConditionalMain>
           <Toaster richColors />
         </body>
       </html>

@@ -133,9 +133,8 @@ export const CarCard = memo(function CarCard({ car }) {
             </Badge>
           </div>
 
-          {/* ✅ Removed manual button, since card is now clickable */}
           <div className="flex justify-between">
-            <Button className="flex-1 pointer-events-none opacity-80">
+            <Button className="flex-1 pointer-events-none opacity-80 hover:bg-[#3C571F] hover:text-white">
               View Car
             </Button>
           </div>
